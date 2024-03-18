@@ -5,8 +5,6 @@ import java.util.Scanner;
 public class StudentManagement {
     private Student[] studentArr = new Student[0];
 
-
-
     public void addNew(Scanner scanner){
 
         // nhap so luong can them
@@ -37,25 +35,17 @@ public class StudentManagement {
     }
 
     public void displayAllStudent(){
+        if(studentArr.length == 0){
+            System.out.println("Your Array have no student, choosse another options");
+        }
         for (byte i = 0; i < studentArr.length; i++) {
-            System.out.printf("Thông tin sinh viên thứ %d \n" +
-                    "Student ID  %s\n " +
-                    "Student Name %s \n" +
-                    "Student Age %d \n" +
-                    "Student gender %b \n" +
-                    "Student Average Score %f \n ",
-                    i + 1,
-                    studentArr[i].getStudentId(),
-                    studentArr[i].getStudentName(),
-                    studentArr[i].getAge(),
-                    studentArr[i].getGender(),
-                    studentArr[i].getAverageScore()
-                    );
+            System.out.printf(studentArr[i].toString());
+            System.out.printf("--------------------------------");
+
         }
     }
 
     public Student inputInfo(Scanner scanner){
-
         Student addStudent = new Student();
 
         System.out.println("input student id");
@@ -70,7 +60,8 @@ public class StudentManagement {
         byte studentAge = Byte.parseByte(scanner.nextLine());
         addStudent.setAge(studentAge);
 
-        System.out.println("input student gender");
+        System.out.println("input student gender, type false if youre female, " +
+                "type true if youre male");
         boolean studentGender = Boolean.parseBoolean(scanner.nextLine());
         addStudent.setGender(studentGender);
 
@@ -88,17 +79,12 @@ public class StudentManagement {
 
     public void deleteStudent(Scanner scanner){
         System.out.println("input index you want to delete");
-        byte deleteIndex = Byte.parseByte(scanner.nextLine());
         byte lengOfArray = (byte) studentArr.length;
-
         Student[] newArr = new Student[lengOfArray - 1];
-
         Student student;
         byte currentIndex = 0;
-        while(deleteIndex > lengOfArray || deleteIndex < 0){
-            System.out.println("Your input index out of range!, please input again");
-            deleteIndex = Byte.parseByte(scanner.nextLine());
-        }
+
+        byte deleteIndex = isValid(lengOfArray, scanner) ;
 
         for (byte i = 0; i < lengOfArray; i++) {
             student = studentArr[i];
@@ -111,6 +97,21 @@ public class StudentManagement {
         studentArr = newArr;
     }
 
+    private byte isValid(byte lengOfArray, Scanner scanner){
+        System.out.printf("Your index from 1 to %d ", lengOfArray );
+        byte index = Byte.parseByte(scanner.nextLine());
+        byte programIndex = (byte) (index - 1);
+        while(programIndex  >= lengOfArray || index < 0){
+            System.out.println("Your input index out of range!, please input again");
+            programIndex = Byte.parseByte(scanner.nextLine());
+        }
+
+        return programIndex ;
+    };
+
+
+
+
     //nhap vao vi tri can cap nhat
 //    Student updateStudent = new Student();
     // neu vi trí đó vượt quá lengthOfArray, cho user nhập lại
@@ -120,32 +121,17 @@ public class StudentManagement {
     // }
     public void updateStudent(Scanner scanner){
         System.out.println("input index you want to update");
-        byte updateIndex = Byte.parseByte(scanner.nextLine());
         byte lengOfArray = (byte) studentArr.length;
-        Student[] newArr = new Student[lengOfArray];
-        Student studentUpdate = new Student();
-
-
-        while(updateIndex > lengOfArray || updateIndex < 0){
-            System.out.println("Your input index out of range!, please input again");
-            updateIndex = Byte.parseByte(scanner.nextLine());
-        }
+        byte updateIndex = isValid(lengOfArray, scanner);
+        Student studentUpdate = inputInfo(scanner);
 
         for (byte i = 0; i < lengOfArray; i++) {
+
             if(updateIndex == i){
-                System.out.println("please input student Name want to update");
-                studentUpdate.setStudentName(scanner.nextLine());
-                System.out.println("please input student average score want to update");
-                studentUpdate.setAverageScore(Float.parseFloat(scanner.nextLine()));
-                System.out.println("please input student age want to update");
-                studentUpdate.setAge(Byte.parseByte(scanner.nextLine()));
-                System.out.println("please input student gender want to update");
-                studentUpdate.setGender(Boolean.parseBoolean(scanner.nextLine()));
+                studentArr[i] = studentUpdate ;
             }
-            newArr[i] =studentUpdate;
         }
 
-        studentArr = newArr;
     }
 
 }

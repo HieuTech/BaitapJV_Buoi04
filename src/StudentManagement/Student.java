@@ -60,13 +60,26 @@ public class Student {
 
     @Override
     public String toString() {
-        return String.format(" student id : %s \n" +
-                "student name" +
-                "student age" +
-                "student gender" +
-                "student average score",
-                this.studentId, this.studentName,
-                this.age, this.gender,
+//        return String.format(" student id : %s \n" +
+//                "student name:  " +
+//                "student age " +
+//                "student gender " +
+//                "student average score ",
+//                this.studentId, this.studentName,
+//                this.age, this.gender,
+//                this.averageScore
+//                );
+        return String.format( """
+                student id: %s 
+                student name: %s 
+                student age: %d 
+                student gender: %s 
+                student average score: %f 
+                """ ,
+                this.studentId,
+                this.studentName,
+                this.age,
+                this.gender ? "Male" : "Female",
                 this.averageScore
                 );
     }

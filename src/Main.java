@@ -25,6 +25,15 @@ public class Main {
 //        System.out.println(fan);
 //        System.out.println(fan2);
 
+        //----------BAI TAP STOP WATCH---------------
+
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        for (int i = 0; i < 220000; i++) {
+           stopWatch.end();
+        }
+        System.out.printf("Your time: %f", stopWatch.getElapsedTime());
+
         //-----------BAI TAP STUDENT MANAGEMENT------------
 
 //        System.out.println("Student Management Program");
@@ -103,9 +112,9 @@ public class Main {
 
         //-----------BAI TAP Build static method------------
 
-        AccessModifier accessModifier = new AccessModifier();
-        accessModifier.getRadius();
-        accessModifier.getAres();
+//        AccessModifier accessModifier = new AccessModifier();
+//        accessModifier.getRadius();
+//        accessModifier.getAres();
 
 
         //ket qua la ko có gì thay đồi, vì non-static method mặc định
